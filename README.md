@@ -8,7 +8,7 @@
 - Git
 
 ## Étapes d'installation
-1. **Cloner le dépôt Symfony et React** ```bash git clone https://github.com/votre-utilisateur/votre-projet-symfony.git cd votre-projet-symfony git clone https://github.com/votre-utilisateur/votre-projet-react.git cd votre-projet-react ```
+1. **Cloner le dépôt Symfony et React** ```bash git clone https://github.com/shoonisher/Project.git cd Project ```
 2. **Installer les dépendances PHP pour Symfony** Assurez-vous d'avoir Composer installé. Ensuite, exécutez : ```bash composer install ```
 3. **Configurer les variables d'environnement pour Symfony** Copiez le fichier `.env` pour créer votre propre configuration locale : ```bash cp .env .env.local ``` Modifiez le fichier `.env.local` pour y ajouter vos paramètres de base de données et autres configurations nécessaires.
 4. **Créer la base de données pour Symfony** Assurez-vous que votre serveur de base de données est en cours d'exécution. Ensuite, créez la base de données et exécutez les migrations : ```bash php bin/console doctrine:database:create php bin/console doctrine:migrations:migrate ```

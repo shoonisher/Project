@@ -1,7 +1,7 @@
 # Project
 
 ## Prérequis
-- PHP >= 7.4
+- PHP >= 8.1
 - Composer
 - Node.js >= 12
 - npm ou yarn

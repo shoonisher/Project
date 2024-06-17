@@ -1,0 +1,23 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        formation:
+            uri_prefix: /uploads/images/formation
+            upload_destination: '%kernel.project_dir%/public/uploads/images/formation'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            
+        carousel:
+                uri_prefix: /uploads/images/carousel
+                upload_destination: '%kernel.project_dir%/public/uploads/images/carousel'
+                namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        contact:
+                uri_prefix: /uploads/images/contact
+                upload_destination: '%kernel.project_dir%/public/uploads/images/contact'
+                namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        apropos:
+                uri_prefix: /uploads/images/apropos
+                upload_destination: '%kernel.project_dir%/public/uploads/images/apropos'
+                namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

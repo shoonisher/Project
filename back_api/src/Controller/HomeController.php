@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Controller;
 
@@ -19,14 +19,17 @@ class HomeController extends AbstractController
         $carouselRepository = $doctrine->getRepository(Carousel::class);
 
         // Correction de la condition de filtrage
-        $formations = $formationRepository->findBy(['isAccueil' => 1]);
+        $formations = $formationRepository->findBy(['isAccueil' => true]);
         $carousels = $carouselRepository->findBy([], ['position' => 'DESC']);
 
         $formationsData = array_map(function($formation) {
             return [
                 'id' => $formation->getId(),
                 'nom' => $formation->getNom(),
-                'public' => $formation->getPublic(),
+                'public' => $formation->getPublic() ? [
+                    'id' => $formation->getPublic()->getId(),
+                    'type' => $formation->getPublic()->getType(),
+                ] : null,
                 'duree' => $formation->getDuree(),
                 'isAccueil' => $formation->getIsAccueil(),
                 'slug' => $formation->getSlug(),

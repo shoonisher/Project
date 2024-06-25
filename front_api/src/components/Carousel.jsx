@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Base_Img_Url from '../Data/Data';
-import "../assets/css/bootstrap.css";
 import "../assets/css/style.css";
-// Removed unnecessary import of bootstrap.js
 
 const CarouselItem = ({ image, title, isActive }) => (
   <div className={`carousel-item ${isActive ? 'active' : ''}`}>

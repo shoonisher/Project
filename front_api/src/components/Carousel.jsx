@@ -11,7 +11,7 @@ const CarouselItem = ({ image, title, isActive }) => (
 );
 
 const Carousel = ({ carousels }) => (
-  <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+  <div id="carouselExampleIndicators" className="carousel slide w-100" data-bs-ride="carousel">
     <div className="carousel-indicators">
       {carousels.map((_, index) => (
         <button

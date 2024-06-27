@@ -99,16 +99,9 @@ main {
   margin-right: 6%;
 }
 
-.navbar {
-  background-color: rgba(0, 0, 0, 0);
-  margin-top: 3rem;
-}
-
 .navbar-absolute {
-  position: absolute;
-  width: 100%;
+  max-width: 100%;
   z-index: 1000;
-  margin-top: 2rem;
 }
 
 .navbar-logo img {
@@ -401,10 +394,6 @@ article {
 }
 
 /* Qui-sommes-nous ? */
-
-.qsn {
-  margin-top: 4.5%;
-}
 
 .qsn img {
   width: 100%;

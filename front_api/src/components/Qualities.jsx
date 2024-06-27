@@ -5,7 +5,7 @@ import Base_Img_Url from '../Data/Data';
 const Quality = ({ image, title, text }) => (
   <div className="col-12 col-md-4">
     <div className="qualites">
-    <img src={`https://localhost:8000/${image}`} className="d-block w-100" alt={title} />
+    <img src={`https://localhost:8000/${image}`} alt={title} />
       <p>{text}</p>
     </div>
   </div>

@@ -18,6 +18,20 @@ class ContactController extends AbstractController
     public function index(Request $request, MailerInterface $mailer, ManagerRegistry $doctrine): JsonResponse
     {
         $personnels = $doctrine->getRepository(Personnel::class)->findAll();
+
+        $personnelData = [];
+        foreach ($personnels as $personnel) {
+            $personnelData[] = [
+                'titre' => $personnel->getTitre(),
+                'description' => $personnel->getDescription(),
+                'imageName' => $personnel->getImageName(),
+                'email' => $personnel->getEmail(),
+                'telephone' => $personnel->getTelephone(),
+            ];
+        }
+
+        // Create the form
+        $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -36,7 +50,7 @@ class ContactController extends AbstractController
             // Create and send email
             $email = (new Email())
                 ->from('site@morringan.fr') // Set the sender email address
-                ->to('contact@morringan.fr') // Set the recipient email address
+                ->to('aognier93420@gmail.com') // Set the recipient email address
                 ->subject('Nouvelle demande de contact')
                 ->html($this->renderView(
                     'email/index.html.twig',
@@ -65,5 +79,24 @@ class ContactController extends AbstractController
             'message' => 'Le formulaire contient des erreurs.',
             'form_errors' => (string) $form->getErrors(true, false)
         ]);
+    }
+
+    #[Route('/api/personnels', name: 'api_personnels')]
+    public function getPersonnels(ManagerRegistry $doctrine): JsonResponse
+    {
+        $personnels = $doctrine->getRepository(Personnel::class)->findAll();
+
+        $personnelData = [];
+        foreach ($personnels as $personnel) {
+            $personnelData[] = [
+                'titre' => $personnel->getTitre(),
+                'description' => $personnel->getDescription(),
+                'imageName' => $personnel->getImageName(),
+                'email' => $personnel->getEmail(),
+                'telephone' => $personnel->getTelephone(),
+            ];
+        }
+
+        return new JsonResponse($personnelData);
     }
 }

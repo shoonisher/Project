@@ -1,7 +1,7 @@
 // CoursesList.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
-import CourseCard from './CourseCard';
+import CourseCard from '../components/CourseCard';
 
 const filterAccueilFormations = (formations) => {
   return formations.filter(formation => formation.isAccueil === true);

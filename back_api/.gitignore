@@ -8,5 +8,5 @@
 /var/
 /vendor/
 /migrations/
-/composer.json
+/composer.lock
 ###< symfony/framework-bundle ###

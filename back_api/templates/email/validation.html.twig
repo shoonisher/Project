@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	<style>
+		.navbar-absolute {
+			background-color: #686bae;
+		}
+	</style>
+    <div class="container ">
+        <div class="alert alert-success my-custom-margin" role="alert">
+            <h4 class="alert-heading">Votre demande de contact a été effectuée avec succès!</h4>
+            <p>Un message de confirmation ou des détails supplémentaires peuvent être ajoutés ici.</p>
+            <hr>
+            <a href="{{ path('app_accueil') }}" class="btn btn-info">Retour à l'accueil</a>
+        </div>
+    </div>
+
+{% endblock %}

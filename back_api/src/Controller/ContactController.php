@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'app_contact')]
+    #[Route('/contact', name: 'app_contact', methods: ['POST', 'GET'])]
     public function index(Request $request, MailerInterface $mailer, ManagerRegistry $doctrine): JsonResponse
     {
         $personnels = $doctrine->getRepository(Personnel::class)->findAll();
@@ -33,7 +33,7 @@ class ContactController extends AbstractController
         // Create the form
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
-
+ 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
 
@@ -46,6 +46,8 @@ class ContactController extends AbstractController
             $formattedDatepicker = $formData['datepicker']->format('Y-m');
             $numberOfPersons = $formData['personne'];
             $message = $formData['message'];
+
+            dd($formData);
 
             // Create and send email
             $email = (new Email())

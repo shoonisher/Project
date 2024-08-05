@@ -1,5 +1,5 @@
 // src/components/PreloaderAndContactInfo.jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const PreloaderAndContactInfo = () => {
   useEffect(() => {

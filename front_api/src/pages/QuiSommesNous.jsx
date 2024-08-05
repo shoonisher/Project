@@ -1,5 +1,4 @@
 // src/pages/QuiSommesNousPage.jsx
-import React from 'react';
 import QuisommesNous from '../components/Meta/QuisommesNous';
 import Carousel from '../components/Carousel/Quisommes-nous';
 import ExpertiseSection from '../components/Quisommes-nous/ExpertiseSection';

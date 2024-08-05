@@ -1,9 +1,12 @@
 // src/components/Navbar.jsx
-import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import '../assets/css/Navbar.css'
+import '../assets/css/Navbar.css';
+import { AuthContext } from '../Data/AuthContext';
 
 const Navbar = () => {
+  const { isLoggedIn, logout } = useContext(AuthContext);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark navbar-absolute">
       <a className="navbar-brand navbar-logo" href="/">
@@ -23,7 +26,7 @@ const Navbar = () => {
       <div className="collapse navbar-collapse justify-content-center text-center text_nav" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link className="nav-link" to="/home">Accueil</Link>
+            <Link className="nav-link" to="/">Accueil</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/formation">Formation</Link>
@@ -40,6 +43,15 @@ const Navbar = () => {
           <li className="nav-item">
             <Link className="nav-link" to="/contact">Contact</Link>
           </li>
+          {isLoggedIn ? (
+            <li className="nav-item">
+              <button className="btn btn-link nav-link" onClick={logout} style={{ color: 'white' }}>Se déconnecter</button>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link className="nav-link" to="/hades">Se connecter</Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

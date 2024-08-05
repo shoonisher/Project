@@ -1,5 +1,4 @@
 // PopularCourses.jsx
-import React from 'react';
 
 const PopularCourses = () => (
   <section className="d-flex align-items-center justify-content-between mt-5 exploration">

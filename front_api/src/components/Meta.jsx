@@ -1,5 +1,4 @@
 // Meta.jsx
-import React from 'react';
 
 const Meta = () => (
   <>

@@ -1,14 +1,23 @@
 // Carousel.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Base_Img_Url from '../Data/Data';
 import "../assets/css/style.css";
+import PropTypes from 'prop-types';
+import axiosInstance from '../Data/axiosConfig';
+
 
 const CarouselItem = ({ image, title, isActive }) => (
   <div className={`carousel-item ${isActive ? 'active' : ''}`}>
     <img src={`${Base_Img_Url}${image}`} className="d-block w-100" alt={title} />
   </div>
 );
+
+CarouselItem.propTypes = {
+  picture: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+};
 
 const Carousel = ({ carousels }) => (
   <div id="carouselExampleIndicators" className="carousel slide w-100" data-bs-ride="carousel">
@@ -29,7 +38,7 @@ const Carousel = ({ carousels }) => (
       {carousels.map((carousel, index) => (
         <CarouselItem
           key={index}
-          image={carousel.imageName}
+          image={carousel.picture}
           title={carousel.titre}
           isActive={index === 0}
         />
@@ -67,12 +76,21 @@ const Carousel = ({ carousels }) => (
   </div>
 );
 
+Carousel.propTypes = {
+  carousels: PropTypes.arrayOf(
+    PropTypes.shape({
+      picture: PropTypes.string.isRequired,
+      titre: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
 function App() {
   const [carousels, setCarousels] = useState([]);
 
   useEffect(() => {
     // Fetch data from Symfony API
-    axios.get('https://localhost:8000/home')
+    axiosInstance.get('/home')
       .then(response => {
         setCarousels(response.data.carousels);
       })

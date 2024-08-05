@@ -1,5 +1,4 @@
 // DownloadCatalogue.jsx
-import React from 'react';
 
 const DownloadCatalogue = () => (
   <section className="d-flex align-items-center justify-content-center mt-5">

@@ -1,6 +1,5 @@
 // Qualities.jsx
-import React from 'react';
-import Base_Img_Url from '../Data/Data';
+import PropTypes from 'prop-types';
 
 const Quality = ({ image, title, text }) => (
   <div className="col-12 col-md-4">
@@ -10,6 +9,12 @@ const Quality = ({ image, title, text }) => (
     </div>
   </div>
 );
+
+Quality.propTypes = {
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 const Qualities = () => (
   <section>

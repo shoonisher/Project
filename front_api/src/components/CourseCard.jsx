@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 // CourseCard.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const CourseCard = ({ course }) => {

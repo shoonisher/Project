@@ -1,5 +1,4 @@
 // Welcome.jsx
-import React from 'react';
 
 const Welcome = () => (
   <section id="fondements-section">

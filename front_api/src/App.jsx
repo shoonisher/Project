@@ -34,6 +34,8 @@ import ProgrammeList from './pages/AdminProgramme';
 import AdminAddProgramme from './components/Admin/AdminAddProgramme';
 import AdminEditProgramme from './components/Admin/AdminEditProgramme';
 import Footer from './components/Footer';
+import ResetPasswordForm from './pages/ResetPassword';
+import CodeVerificationForm from './pages/CodeResetPassword';
 
 function App() {
   return (
@@ -70,6 +72,8 @@ function App() {
           <Route path="/admin/programme" element={< ProgrammeList/>} />
           <Route path="/admin/programme/ajouter" element={< AdminAddProgramme/>} />
           <Route path="/admin/programme/edit/:id" element={< AdminEditProgramme/>} />
+          <Route path="/reset-password" element={<ResetPasswordForm />} />
+          <Route path="/verify-code" element={<CodeVerificationForm />} />
         </Routes>
         <Footer />
       </Router>

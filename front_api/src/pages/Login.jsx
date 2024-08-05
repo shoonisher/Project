@@ -88,7 +88,7 @@ const LoginForm = () => {
             </form>
 
             <p className="mt-3 text-center">
-              <a href="/app_forgot_password_request">Mot de passe oublié ?</a>
+              <a href="/reset-password">Mot de passe oublié ?</a>
             </p>
           </div>
           <p className="mt-3">Oups, vous vous êtes peut-être trompé de chemin ?</p>

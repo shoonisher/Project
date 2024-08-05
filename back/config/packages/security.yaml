@@ -43,19 +43,18 @@ security:
             # Si un user checker est necessaire:
             # user_checker: user_checker_service_id
             refresh_jwt: ~
-
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/zeus, roles: ROLE_ADMIN }
         - { path: ^/$, roles: PUBLIC_ACCESS }
         - { path: ^/api/(login|token/refresh|password-forgotten-request|password-forgotten-new-password), roles: PUBLIC_ACCESS }
         - { path: ^/api/users, methods: POST, roles: PUBLIC_ACCESS }
-        - { path: ^/api | ^/zeus | ^/hades, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api , roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/zeus, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }
         
        
-
 when@test:
     security:
         password_hashers:

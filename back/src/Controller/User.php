@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class User extends AbstractController
 {
@@ -21,7 +22,7 @@ class User extends AbstractController
     {
         $user = $this->getUser();
 
-        if (!$user) {
+        if (!$user instanceof UserInterface) {
             return new JsonResponse([
                 'status' => 'error',
                 'message' => 'Utilisateur non trouvé.',

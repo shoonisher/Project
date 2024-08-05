@@ -6,10 +6,21 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\AproposRepository;
+use ApiPlatform\Metadata\Get;
 
 #[ORM\Entity(repositoryClass: AproposRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+       new Get(
+        security: "is_granted('ROLE_ADMIN')"
+       )
+    ]
+)]
 class Apropos
 {
     #[ORM\Id]

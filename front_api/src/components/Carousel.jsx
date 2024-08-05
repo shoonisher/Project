@@ -1,11 +1,9 @@
 // Carousel.jsx
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Base_Img_Url from '../Data/Data';
 import "../assets/css/style.css";
 import PropTypes from 'prop-types';
 import axiosInstance from '../Data/axiosConfig';
-
 
 const CarouselItem = ({ image, title, isActive }) => (
   <div className={`carousel-item ${isActive ? 'active' : ''}`}>
@@ -14,7 +12,7 @@ const CarouselItem = ({ image, title, isActive }) => (
 );
 
 CarouselItem.propTypes = {
-  picture: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
 };

@@ -47,6 +47,7 @@ const PWD_FORGOT_WRITE = 'password-forgotten:write';
             processor: UserActivationCodeValidation::class,
             denormalizationContext: ['groups' => [USER_WRITE]],
         ),
+        //1 bis
         new Post(
             name: 'activationCodeResend',
             uriTemplate: '/users/activation-code/resend',
@@ -54,6 +55,7 @@ const PWD_FORGOT_WRITE = 'password-forgotten:write';
             processor: UserActivationCodeResend::class,
             denormalizationContext: ['groups' => [USER_WRITE]],
         ),
+        //1
         new Post(
             name: 'passwordForgottenRequest',
             uriTemplate: '/password-forgotten-request',
@@ -61,6 +63,8 @@ const PWD_FORGOT_WRITE = 'password-forgotten:write';
             processor: UserPasswordForgottenRequest::class,
             denormalizationContext: ['groups' => [PWD_FORGOT_WRITE]],
         ),
+        //2
+        //MDP + CODE
         new Post(
             name: 'passwordForgottenNewPassword',
             uriTemplate: '/password-forgotten-new-password',

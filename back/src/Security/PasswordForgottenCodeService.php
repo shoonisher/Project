@@ -29,7 +29,7 @@ class PasswordForgottenCodeService
         $user->setPasswordForgottenCodeExpiresAt($passwordForgottenCode['expirationDate']);
 
         $email = (new Email())
-            ->from('moi@example.com')
+            ->from('site@morringan.fr')
             ->to($user->getUsername())
             ->subject('Réinitialisation de votre mot de passe')
             ->html(

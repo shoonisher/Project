@@ -16,8 +16,7 @@ class AdminApropos extends AbstractController
     #[Route('/admin/apropos', name: 'admin_apropos_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
-        $apropos = $doctrine->getRepository(Apropos::class)->findAll();
-
+       $apropos = $doctrine->getRepository(Apropos::class)->findAll();
         // Convertir les entités en tableau
         $data = array_map(function (Apropos $apropos) {
             return [

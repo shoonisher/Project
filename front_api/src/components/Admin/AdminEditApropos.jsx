@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../Data/axiosConfig';
 import BoutonRetour from './BoutonRetour';
+import Base_API from '../../Data/Base_API';
 
 const AdminEditApropos = () => {
   const { id } = useParams();
@@ -76,7 +77,7 @@ const AdminEditApropos = () => {
           <label htmlFor="picture" className="form-label">Image</label>
           {picture && (
             <div className="mb-3">
-              <img src={`http://localhost:8000/uploads/images/apropos/${picture}`} alt="A propos" width="100" />
+              <img src={`${Base_API}/uploads/images/apropos/${picture}`} alt="A propos" width="100" />
             </div>
           )}
           <input

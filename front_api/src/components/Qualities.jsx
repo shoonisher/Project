@@ -1,10 +1,11 @@
 // Qualities.jsx
 import PropTypes from 'prop-types';
+import Base_API from '../Data/Base_API';
 
 const Quality = ({ image, title, text }) => (
   <div className="col-12 col-md-4">
     <div className="qualites">
-    <img src={`https://localhost:8000/${image}`} alt={title} />
+    <img src={`${Base_API}/${image}`} alt={title} />
       <p>{text}</p>
     </div>
   </div>

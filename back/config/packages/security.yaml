@@ -43,6 +43,26 @@ security:
             # Si un user checker est necessaire:
             # user_checker: user_checker_service_id
             refresh_jwt: ~
+
+        profile:
+            pattern: ^/profile
+            stateless: true
+            provider: app_user_provider
+            entry_point: jwt
+            jwt: ~
+            refresh_jwt: ~
+            logout:
+                path: api_token_invalidate
+
+        admin:
+            pattern: ^/admin
+            stateless: true
+            provider: app_user_provider
+            entry_point: jwt
+            jwt: ~
+            refresh_jwt: ~
+            logout:
+                path: api_token_invalidate
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
@@ -52,7 +72,6 @@ security:
         - { path: ^/api , roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/zeus, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
         
        
 when@test:

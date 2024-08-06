@@ -11,16 +11,7 @@ use App\Repository\AproposRepository;
 use ApiPlatform\Metadata\Get;
 
 #[ORM\Entity(repositoryClass: AproposRepository::class)]
-#[ApiResource(
-    operations: [
-        new GetCollection(
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-       new Get(
-        security: "is_granted('ROLE_ADMIN')"
-       )
-    ]
-)]
+#[ApiResource()]
 class Apropos
 {
     #[ORM\Id]

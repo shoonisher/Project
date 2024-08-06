@@ -38,6 +38,11 @@ const LoginForm = () => {
       setError(err.response?.data?.message || 'Une erreur est survenue');
     }
   };
+//decommenter avant mise en ligne
+  // if (isLoggedIn) {
+  //   navigate('/');
+  //   return;
+  // }
 
   return (
     <div className="container-fluid mt-5">

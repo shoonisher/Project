@@ -14,6 +14,7 @@ class AdminCible extends AbstractController
     #[Route('/admin/cible', name: 'admin_cible_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $cibles = $doctrine->getRepository(Cible::class)->findAll();
 
         // Convertir les entités en tableau
@@ -30,6 +31,8 @@ class AdminCible extends AbstractController
     #[Route("/admin/cible/ajouter", name: "admin_cible_create", methods: ["POST"])]
     public function createCible(Request $request, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $data = $request->request->all();
 
         if (empty($data['type'])) {
@@ -62,6 +65,8 @@ class AdminCible extends AbstractController
     #[Route("/admin/cible/edit/{id}", name: "admin_cible_update", methods: ["POST", "GET"])]
     public function updateCible(int $id, Request $request, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $cible = $doctrine->getRepository(Cible::class)->find($id);
 
         if (!$cible) {
@@ -102,6 +107,8 @@ class AdminCible extends AbstractController
     #[Route("/admin/cible/{id}/delete", name: "admin_cible_delete", methods: ["DELETE"])]
     public function deleteCible(int $id, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $cible = $doctrine->getRepository(Cible::class)->find($id);
 
         if (!$cible) {

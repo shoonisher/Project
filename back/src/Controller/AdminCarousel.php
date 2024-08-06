@@ -18,6 +18,7 @@ class AdminCarousel extends AbstractController
     #[Route('/admin/carousel/ajouter', name: 'app_carousel', methods: ['POST'])]
     public function add(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if (!$request->isMethod('POST')) {
             return new JsonResponse([
                 'status' => 'error',
@@ -82,6 +83,7 @@ class AdminCarousel extends AbstractController
     #[Route('/admin/carousel', name: 'admin_carousel_index', methods: ['GET'])]
     public function index(CarouselRepository $carouselRepository): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $carousels = $carouselRepository->findAll();
 
         // Convertir les entités en tableau
@@ -100,6 +102,7 @@ class AdminCarousel extends AbstractController
     #[Route('/admin/carousel/{id}/delete', name: 'admin_carousel_delete', methods: ['DELETE'])]
     public function delete(int $id, CarouselRepository $carouselRepository, ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $carousel = $carouselRepository->find($id);
 
         if (!$carousel) {
@@ -134,6 +137,7 @@ class AdminCarousel extends AbstractController
         ManagerRegistry $doctrine,
         SluggerInterface $slugger
     ): JsonResponse {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $carousel = $carouselRepository->find($id);
 
         if (!$carousel) {

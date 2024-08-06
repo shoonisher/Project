@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // CourseCard.jsx
 import { Link } from 'react-router-dom';
+import Base_API from '../Data/Base_API';
 
 const CourseCard = ({ course }) => {
   console.log(course);
@@ -9,7 +10,7 @@ const CourseCard = ({ course }) => {
       <div className="cartes">
         <Link to={`/formation/details/${course[0].slug}`}>
           <img 
-            src={`https://localhost:8000/uploads/images/formation/${course[0].imageName}`} 
+            src={`${Base_API}/uploads/images/formation/${course[0].imageName}`} 
             className="card-img-top" 
             alt={`Formation - ${course[0].nom}`} 
           />

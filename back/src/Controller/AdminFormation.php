@@ -30,6 +30,7 @@ class AdminFormation extends AbstractController
     #[Route('/admin/formations', name: 'admin_formations', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $formations = $doctrine->getRepository(Formation::class)->findAll();
 
         // Convertir les entités en tableau
@@ -64,6 +65,8 @@ class AdminFormation extends AbstractController
     #[Route('/admin/formations/{id}', name: 'admin_formations_show', methods: ['GET'])]
     public function show(int $id): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $formation = $this->formationRepository->find($id);
 
         if (!$formation) {
@@ -76,6 +79,8 @@ class AdminFormation extends AbstractController
     #[Route('/admin/formation/ajouter', name: 'admin_formations_create', methods: ['POST'])]
     public function create(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $data = $request->request->all();
         $pictureFile = $request->files->get('picture'); // Pour les fichiers
 
@@ -201,6 +206,8 @@ class AdminFormation extends AbstractController
     #[Route('/admin/formation/edit/{id}', name: 'admin_formations_update', methods: ['POST', 'GET'])]
     public function updateFormation(int $id, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $formation = $doctrine->getRepository(Formation::class)->find($id);
 
         if (!$formation) {
@@ -310,6 +317,8 @@ class AdminFormation extends AbstractController
     #[Route('/admin/formation/{id}/delete', name: 'admin_formations_delete', methods: ['DELETE'])]
     public function delete(int $id): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $formation = $this->formationRepository->find($id);
 
         if (!$formation) {

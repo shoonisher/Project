@@ -1,11 +1,12 @@
 // src/components/PresenceSection.jsx
 import React from 'react';
+import Base_API from '../../Data/Base_API';
 
 const PresenceSection = () => {
   return (
     <div className="row mt-5 d-flex align-items-center justify-content-center">
       <div className="col-md-6">
-        <img src="https://localhost:8000/img/france.png" alt="Équipe" className="img-fluid rounded" />
+        <img src={`${Base_API}/img/france.png`} alt="Équipe" className="img-fluid rounded" />
       </div>
       <div className="col-md-6">
         <h5 className="text-decoration-none text-center apropos">Notre présence nationale</h5>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import axiosInstance from '../Data/axiosConfig';
+import { useNavigate } from 'react-router-dom';
+import Base_API from '../Data/Base_API';
 
 const ContactForm = () => {
   const [form, setForm] = useState({
@@ -15,20 +17,35 @@ const ContactForm = () => {
   });
   const [formStatus, setFormStatus] = useState(null);
   const [personnel, setPersonnel] = useState(null);
+  const [formations, setFormations] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance.get('https://localhost:8000/api/personnel')
+    axiosInstance.get('/profile')
       .then(response => {
         setPersonnel(response.data);
       })
       .catch(error => {
         console.error('Error fetching personnel data:', error);
       });
+
+    axiosInstance.get('/formations/contact')
+      .then(response => {
+        if (Array.isArray(response.data)) {
+          setFormations(response.data);
+        } else {
+          console.error('Error: formations data is not an array');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching formations data:', error);
+      });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://localhost:8000/contact', form, {
+    axiosInstance.post(`/contact`, form, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -37,6 +54,22 @@ const ContactForm = () => {
       .then(response => {
         setFormStatus(response.data);
         console.log(response.data);
+        if (response.data.status === 'success') {
+          setForm({
+            name: '',
+            email: '',
+            phone: '',
+            location: '',
+            formation: '',
+            datepicker: '',
+            personne: '',
+            message: ''
+          });
+          setSuccessMessage('Votre message a été envoyé avec succès.');
+          setTimeout(() => {
+            navigate('/');
+          }, 3000); // 3 seconds delay
+        }
       })
       .catch(error => {
         console.error('Error submitting form:', error);
@@ -54,6 +87,11 @@ const ContactForm = () => {
     <div className="content">
       <h1 className="text-center mt-5">Formulaire de Contact</h1>
       <div className="container">
+        {successMessage && (
+          <div className="alert alert-success">
+            {successMessage}
+          </div>
+        )}
         <div className="row align-items-stretch no-gutters contact-wrap contact">
           <div className="col-md-8">
             <div className="form h-100">
@@ -91,7 +129,7 @@ const ContactForm = () => {
                 <div className="row">
                   <div className="col-md-6 form-group mb-5">
                     <input
-                      type="text"
+                      type="number"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
@@ -101,46 +139,47 @@ const ContactForm = () => {
                     />
                   </div>
                   <div className="col-md-6 form-group mb-5">
-                    <input
-                      type="text"
+                    <select
                       name="location"
                       value={form.location}
                       onChange={handleChange}
-                      placeholder="Localisation"
                       className="form-control"
                       required
-                    />
+                    >
+                      <option value="">Sélectionnez une ville</option>
+                      <option value="Paris">Paris</option>
+                      <option value="Marseille">Marseille</option>
+                      <option value="Lyon">Lyon</option>
+                      <option value="Toulouse">Toulouse</option>
+                      <option value="Nice">Nice</option>
+                      <option value="Nantes">Nantes</option>
+                      <option value="Strasbourg">Strasbourg</option>
+                      <option value="Montpellier">Montpellier</option>
+                      <option value="Bordeaux">Bordeaux</option>
+                      <option value="Lille">Lille</option>
+                    </select>
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-md-6 form-group mb-5">
-                    <input
-                      type="text"
+                    <select
                       name="formation"
                       value={form.formation}
                       onChange={handleChange}
-                      placeholder="Formation"
                       className="form-control"
                       required
-                    />
+                    >
+                      <option value="">Sélectionnez une formation</option>
+                      {formations.map((formation) => (
+                        <option key={formation.id} value={formation.name}>
+                          {formation.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="col-md-6 form-group mb-5">
-                    <input
-                      type="text"
-                      name="datepicker"
-                      value={form.datepicker}
-                      onChange={handleChange}
-                      placeholder="Date"
-                      className="form-control"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-6 form-group mb-5">
-                    <input
+                  <input
                       type="number"
                       name="personne"
                       value={form.personne}
@@ -190,7 +229,7 @@ const ContactForm = () => {
               {personnel ? (
                 <div>
                   <p className="mb-5">
-                    <img className="w-100" src={`https://localhost:8000/uploads/images/personnel/${personnel.imageName}`} alt={personnel.titre} />
+                    <img className="w-100" src={`${Base_API}/uploads/images/personnel/${personnel.imageName}`} alt={personnel.titre} />
                   </p>
                   <h3>{personnel.titre}</h3>
                   <p className="mb-5" dangerouslySetInnerHTML={{ __html: personnel.description }}></p>
@@ -210,7 +249,7 @@ const ContactForm = () => {
                       </span>
                     </li>
                     <li className="d-flex">
-                      <img className="w-50 m-5" src="https://localhost:8000/img/Handicap2.png" alt="Handicap" />
+                      <img className="w-50 m-5" src={`${Base_API}/img/Handicap2.png`} alt="Handicap" />
                     </li>
                   </ul>
                 </div>

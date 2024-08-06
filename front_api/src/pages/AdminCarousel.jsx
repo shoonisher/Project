@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axiosInstance from '../Data/axiosConfig';
-import Base_Img_Url from '../Data/Data';
+import Base_Img_Url from '../Data/Base_API';
 import { Link, useNavigate } from 'react-router-dom';
 import BoutonRetour from '../components/Admin/BoutonRetour';
 import { AuthContext } from '../Data/AuthContext';
+import Base_API from '../Data/Base_API';
 
 const CarouselList = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -79,7 +80,7 @@ const CarouselList = () => {
               <tr key={carousel.id}>
                 <td>{carousel.titre}</td>
                 <td>{carousel.position}</td>
-                <td><img src={`${Base_Img_Url}${carousel.picture}`} alt={carousel.titre} width="100" /></td>
+                <td><img src={`${Base_API}/uploads/images/carousel/${carousel.picture}`} alt={carousel.titre} width="100" /></td>
                 <td>
                   <Link to={`/admin/carousel/edit/${carousel.id}`} className="btn btn-warning btn-sm me-2">Modifier</Link>
                   <button onClick={() => handleDelete(carousel.id)} className="btn btn-danger btn-sm">Supprimer</button>

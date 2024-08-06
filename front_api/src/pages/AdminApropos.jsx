@@ -3,6 +3,7 @@ import axiosInstance from '../Data/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import BoutonRetour from '../components/Admin/BoutonRetour';
 import { AuthContext } from '../Data/AuthContext';
+import Base_API from '../Data/Base_API';
 
 const AproposList = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -76,7 +77,7 @@ const AproposList = () => {
             apropos.map(apropos => (
               <tr key={apropos.id}>
                 <td>{apropos.text}</td>
-                <td><img src={`http://localhost:8000/uploads/images/apropos/${apropos.picture}`} alt={apropos.titre} width="100" /></td>
+                <td><img src={`${Base_API}/uploads/images/apropos/${apropos.picture}`} alt={apropos.titre} width="100" /></td>
                 <td>
                   <Link to={`/admin/apropos/edit/${apropos.id}`} className="btn btn-warning btn-sm me-2">Modifier</Link>
                   <button onClick={() => handleDelete(apropos.id)} className="btn btn-danger btn-sm">Supprimer</button>

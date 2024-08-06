@@ -1,13 +1,14 @@
 // Carousel.jsx
 import { useState, useEffect } from 'react';
-import Base_Img_Url from '../Data/Data';
+import Base_Img_Url from '../Data/Base_API';
 import "../assets/css/style.css";
 import PropTypes from 'prop-types';
 import axiosInstance from '../Data/axiosConfig';
+import Base_API from '../Data/Base_API';
 
 const CarouselItem = ({ image, title, isActive }) => (
   <div className={`carousel-item ${isActive ? 'active' : ''}`}>
-    <img src={`${Base_Img_Url}${image}`} className="d-block w-100" alt={title} />
+    <img src={`${Base_API}/uploads/images/carousel/${image}`} className="d-block w-100" alt={title} />
   </div>
 );
 
@@ -54,21 +55,21 @@ const Carousel = ({ carousels }) => (
     <div className="img_carousel">
       <div className="img-carousel_1 d-flex justify-content-around w-100">
         <figure>
-          <img src="https://localhost:8000/img/Bouclier.png" alt="Image d'un bouclier" />
+          <img src={`${Base_API}/img/Bouclier.png`} alt="Image d'un bouclier" />
           <p className="text-large">Formation Qualifiante</p>
         </figure>
         <figure className="carousel_2">
-          <img src="https://localhost:8000/img/Graphe.png" alt="Image d'un graphique" />
+          <img src={`${Base_API}/img/Graphe.png`} alt="Image d'un graphique" />
           <p className="text-large">Approche Innovante</p>
         </figure>
         <figure className="carousel_3">
-          <img src="https://localhost:8000/img/Cible.png" alt="Image d'une cible" />
+          <img src={`${Base_API}/img/Cible.png`} alt="Image d'une cible" />
           <p className="text-large">Coaching</p>
         </figure>
       </div>
     </div>
     <div className="img-carousel_4">
-      <img src="https://localhost:8000/img/Logo_blanc_simple_1.png" alt="Logo MORRINGAN" />
+      <img src={`${Base_API}/img/Logo_blanc_simple_1.png`} alt="Logo MORRINGAN" />
       <p>Le savoir n'a pas de frontière</p>
     </div>
   </div>

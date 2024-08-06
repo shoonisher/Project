@@ -22,11 +22,7 @@ const AdminEditCategorie = () => {
           nom: response.data.nom || '',
           description: response.data.description || ''
         });
-        setSuccessMessage('Catégorie mise à jour avec succès.');
         setError(null);
-        setTimeout(() => {
-          navigate('/admin/categorie');
-        }, 3000);
       } catch (error) {
         setError('Erreur lors du chargement des données de la catégorie.');
         console.error(error);
@@ -36,7 +32,7 @@ const AdminEditCategorie = () => {
     };
 
     fetchCategorieData();
-  }, [id, navigate]);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +57,9 @@ const AdminEditCategorie = () => {
       });
       setSuccessMessage('Catégorie mise à jour avec succès.');
       setError(null);
-      navigate('/admin/categorie');
+      setTimeout(() => {
+        navigate('/admin/categorie');
+      }, 3000);
     } catch (error) {
       setError('Erreur lors de la mise à jour de la catégorie.');
       setSuccessMessage(null);

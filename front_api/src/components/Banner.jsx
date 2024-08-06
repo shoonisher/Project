@@ -1,9 +1,10 @@
 // Banner.jsx
 import React from 'react';
+import Base_API from '../Data/Base_API';
 
 const Banner = () => (
   <div>
-    <img className='bandeau w-100' src="https://localhost:8000/img/Bandeau.png" alt="Explorez, apprenez, progressez" />
+    <img className='bandeau w-100' src={`${Base_API}/img/Bandeau.png`} alt="Explorez, apprenez, progressez" />
     <div className="d-flex flex-column align-items-center text-center">
       <h4 className="bandeau_text">Explorez, apprenez, progressez : C'est notre priorité</h4>
       <h4 className="bandeau_contact mt-2 ">Etes-vous prêt à démarrer ?</h4>

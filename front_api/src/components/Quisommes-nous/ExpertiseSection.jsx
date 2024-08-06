@@ -1,5 +1,6 @@
 // src/components/ExpertiseSection.jsx
 import React from 'react';
+import Base_API from '../../Data/Base_API';
 
 const ExpertiseSection = () => {
   return (
@@ -11,7 +12,7 @@ const ExpertiseSection = () => {
           <p className="text-decoration-none items-aligne-center">Nous offrons une vaste gamme de formations spécialisées qui répondent aux besoins évolutifs du secteur de la sécurité de l'information et du monde de l'entreprenariat. Que vous souhaitiez renforcer vos compétences en cybersécurité, en gestion d'entreprise, nos programmes sont conçus pour vous équiper efficacement. Nous collaborons étroitement avec des experts de l'industrie pour assurer que nos formations restent pertinentes et à la pointe de la technologie.</p>
         </div>
         <div className="col-md-6">
-          <img src="https://localhost:8000/img/formateur.png" alt="Équipe" className="img-fluid rounded" />
+          <img src={`${Base_API}/img/formateur.png`} alt="Équipe" className="img-fluid rounded" />
         </div>
       </div>
     </div>

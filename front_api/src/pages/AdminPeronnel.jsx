@@ -3,6 +3,7 @@ import axiosInstance from '../Data/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import BoutonRetour from '../components/Admin/BoutonRetour';
 import { AuthContext } from '../Data/AuthContext';
+import Base_API from '../Data/Base_API';
 
 const PersonnelList = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -61,7 +62,7 @@ const PersonnelList = () => {
               <td>{person.email || 'Email non disponible'}</td>
               <td>{person.titre || 'Titre non disponible'}</td>
               <td>{person.telephone || 'Téléphone non disponible'}</td>
-              <td>{person.picture ? <img src={`http://localhost:8000/uploads/images/personnel/${person.picture}`} alt="Personnel" width="50" height="50" /> : 'Photo non disponible'}</td>
+              <td>{person.picture ? <img src={`${Base_API}/uploads/images/personnel/${person.picture}`} alt="Personnel" width="50" height="50" /> : 'Photo non disponible'}</td>
               <td>
                 <Link to={`/admin/personnel/edit/${person.id}`} className="btn btn-warning btn-sm me-2">Modifier</Link>
               </td>

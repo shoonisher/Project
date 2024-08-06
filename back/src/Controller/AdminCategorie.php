@@ -14,6 +14,8 @@ class AdminCategorie extends AbstractController
     #[Route('/admin/categories', name: 'admin_categorie_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $categories = $doctrine->getRepository(Categorie::class)->findAll();
 
         // Convertir les entités en tableau
@@ -31,6 +33,8 @@ class AdminCategorie extends AbstractController
     #[Route("/admin/categorie/ajouter", name: "admin_categorie_create", methods: ["POST"])]
     public function createCategorie(Request $request, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $data = $request->request->all();
 
         if (empty($data['nom'])) {
@@ -70,6 +74,8 @@ class AdminCategorie extends AbstractController
     #[Route("/admin/categorie/edit/{id}", name: "admin_categorie_update", methods: ["POST", "GET"])]
     public function updateCategorie(int $id, Request $request, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $categorie = $doctrine->getRepository(Categorie::class)->find($id);
 
         if (!$categorie) {
@@ -116,6 +122,8 @@ class AdminCategorie extends AbstractController
     #[Route("/admin/categorie/{id}/delete", name: "admin_categorie_delete", methods: ["DELETE"])]
     public function deleteCategorie(int $id, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $categorie = $doctrine->getRepository(Categorie::class)->find($id);
 
         if (!$categorie) {

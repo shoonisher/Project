@@ -16,6 +16,8 @@ class AdminPersonnel extends AbstractController
     #[Route('/admin/personnel', name: 'admin_personnel_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $personnels = $doctrine->getRepository(Personnel::class)->findAll();
 
         // Convertir les entités en tableau
@@ -36,6 +38,8 @@ class AdminPersonnel extends AbstractController
     #[Route("/admin/personnel/edit/{id}", name: "admin_personnel_update", methods: ["POST", "GET"])]
     public function updatePersonnel(int $id, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $personnel = $doctrine->getRepository(Personnel::class)->find($id);
 
         if (!$personnel) {

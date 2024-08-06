@@ -16,6 +16,8 @@ class AdminProgramme extends AbstractController
     #[Route('/admin/programme', name: 'admin_programme_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $programmes = $doctrine->getRepository(Programme::class)->findAll();
 
         $data = array_map(function ($programme) {
@@ -35,6 +37,8 @@ class AdminProgramme extends AbstractController
     #[Route('/admin/programme/ajouter', name: 'admin_programme_create', methods: ['POST'])]
     public function create(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $data = json_decode($request->getContent(), true);
 
         if (empty($data['titre'])) {
@@ -97,6 +101,8 @@ class AdminProgramme extends AbstractController
     #[Route('/admin/programme/edit/{id}', name: 'admin_programme_update', methods: ['POST', 'GET'])]
     public function update(int $id, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $programme = $doctrine->getRepository(Programme::class)->find($id);
 
         if (!$programme) {
@@ -180,6 +186,8 @@ class AdminProgramme extends AbstractController
     #[Route('/admin/programme/delete/{id}', name: 'admin_programme_delete', methods: ['DELETE'])]
     public function delete(int $id, ManagerRegistry $doctrine): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $programme = $doctrine->getRepository(Programme::class)->find($id);
 
         if (!$programme) {

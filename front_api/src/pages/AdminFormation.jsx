@@ -3,6 +3,7 @@ import axiosInstance from '../Data/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import BoutonRetour from '../components/Admin/BoutonRetour';
 import { AuthContext } from '../Data/AuthContext';
+import Base_API from '../Data/Base_API';
 
 const FormationList = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -94,7 +95,7 @@ const FormationList = () => {
               <td>{formation.langue || 'Langue non disponible'}</td>
               <td>{formation.lieu || 'Lieu non disponible'}</td>
               <td>{formation.categorie ? formation.categorie.nom : 'Catégorie non disponible'}</td>
-              <td>{formation.picture ? <img src={`http://localhost:8000/uploads/images/formation/${formation.picture}`} alt="Formation" width="50" height="50" /> : 'Photo non disponible'}</td>
+              <td>{formation.picture ? <img src={`${Base_API}/uploads/images/formation/${formation.picture}`} alt="Formation" width="50" height="50" /> : 'Photo non disponible'}</td>
               <td>{formation.isAccueil ? 'Oui' : 'Non'}</td>
               <td>{formation.cible ? formation.cible.type : 'Type non disponible'}</td>
               <td>{formation.slug || 'Slug non disponible'}</td>

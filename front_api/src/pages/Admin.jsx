@@ -11,7 +11,7 @@ const Admin = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate('/hades'); // Redirect to login page if not authenticated
+      navigate('/hades');
     } else {
       const fetchUser = async () => {
         try {
@@ -26,8 +26,7 @@ const Admin = () => {
             setUser({ username: response.data.username });
           }
         } catch (error) {
-          setError('Utilisateur non trouvé.');
-          console.error('Erreur lors de la récupération de l\'utilisateur connecté', error);
+          navigate('/');
         }
       };
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Formation;
 use App\Entity\Personnel;
 use Symfony\Component\Mime\Email;
 use Doctrine\Persistence\ManagerRegistry;
@@ -28,11 +29,10 @@ class ContactController extends AbstractController
                 $phone = $data['phone'] ?? null;
                 $location = $data['location'] ?? null;
                 $formationType = $data['formation'] ?? null;
-                $formattedDatepicker = $data['datepicker'] ?? null;
                 $numberOfPersons = $data['personne'] ?? null;
                 $message = $data['message'] ?? null;
 
-                // Créez et envoyez l'email
+                // Créez et envoyez l'email au destinataire
                 $email = (new Email())
                     ->from('site@morringan.fr') // Remplacez par l'adresse email de l'expéditeur
                     ->to('aognier93420@gmail.com') // Remplacez par l'adresse email du destinataire
@@ -47,11 +47,30 @@ class ContactController extends AbstractController
                             'location' => $location,
                             'formationType' => $formationType,
                             'numberOfPersons' => $numberOfPersons,
-                            'formattedDatepicker' => $formattedDatepicker,
                         ]
                     ));
 
                 $mailer->send($email);
+
+                // Créez et envoyez l'email de confirmation à l'utilisateur
+                $confirmationEmail = (new Email())
+                    ->from('site@morringan.fr') // Remplacez par l'adresse email de l'expéditeur
+                    ->to($emailAddress) // Adresse email de l'utilisateur
+                    ->subject('Confirmation de votre demande de contact')
+                    ->html($this->renderView(
+                        'emails/confirmation.html.twig',
+                        [
+                            'name' => $name,
+                            'email' => $emailAddress,
+                            'phone' => $phone,
+                            'location' => $location,
+                            'formationType' => $formationType,
+                            'numberOfPersons' => $numberOfPersons,
+                            'message' => $message,
+                        ]
+                    ));
+
+                $mailer->send($confirmationEmail);
 
                 return new JsonResponse([
                     'status' => 'success',
@@ -90,4 +109,25 @@ class ContactController extends AbstractController
     
         return new JsonResponse(['error' => 'Aucun personnel trouvé.'], 404);
     }    
+
+    #[Route('/formations/contact', name: 'api_formations')]
+    public function getFormations(ManagerRegistry $doctrine): JsonResponse
+    {
+        $formations = $doctrine->getRepository(Formation::class)->findAll();
+    
+        if (is_array($formations) && !empty($formations)) {
+            $formationsData = [];
+            foreach ($formations as $formation) {
+                $formationsData[] = [
+                    'id' => $formation->getId(),
+                    'name' => $formation->getNom(),
+                ];
+            }
+    
+            return new JsonResponse($formationsData);
+        }
+    
+        return new JsonResponse(['error' => 'Aucune formation trouvée.'], 404);
+    }
 }
+

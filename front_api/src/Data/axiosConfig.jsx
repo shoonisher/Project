@@ -1,9 +1,10 @@
 // axiosConfig.js
 import axios from 'axios';
+import Base_API from './Base_API';
 
 // Créer une instance d'Axios
 const axiosInstance = axios.create({
-  baseURL: 'https://localhost:8000', // Remplacez par l'URL de votre API
+  baseURL: Base_API, // Remplacez par l'URL de votre API
 });
 
 // Ajouter un interceptor pour ajouter le jeton à chaque requête sortante

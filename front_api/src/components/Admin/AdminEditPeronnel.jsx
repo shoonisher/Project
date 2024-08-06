@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../Data/axiosConfig';
+import Base_API from '../../Data/Base_API';
 
 const AdminEditPersonnel = () => {
   const [formData, setFormData] = useState({
@@ -130,7 +131,7 @@ const AdminEditPersonnel = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="picture" className="form-label">Photo</label>
-          {formData.picture && <img src={`https://localhost:8000/uploads/images/personnel/${formData.picture}`} alt="Personnel" width="100" className="d-block mb-2" />}
+          {formData.picture && <img src={`${Base_API}/uploads/images/personnel/${formData.picture}`} alt="Personnel" width="100" className="d-block mb-2" />}
           <input
             type="file"
             id="picture"

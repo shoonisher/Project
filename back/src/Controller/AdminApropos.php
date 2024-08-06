@@ -16,7 +16,8 @@ class AdminApropos extends AbstractController
     #[Route('/admin/apropos', name: 'admin_apropos_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
-       $apropos = $doctrine->getRepository(Apropos::class)->findAll();
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $apropos = $doctrine->getRepository(Apropos::class)->findAll();
         // Convertir les entités en tableau
         $data = array_map(function (Apropos $apropos) {
             return [
@@ -32,6 +33,7 @@ class AdminApropos extends AbstractController
     #[Route("/admin/apropos/ajouter", name: "admin_apropos_create", methods: ["POST"])]
     public function createApropos(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $data = $request->request->all();
         $pictureFile = $request->files->get('picture');
 
@@ -84,6 +86,7 @@ class AdminApropos extends AbstractController
     #[Route("/admin/apropos/edit/{id}", name: "admin_apropos_update", methods: ["POST", "GET"])]
     public function updateApropos(int $id, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $apropos = $doctrine->getRepository(Apropos::class)->find($id);
 
         if (!$apropos) {
@@ -146,6 +149,7 @@ class AdminApropos extends AbstractController
     #[Route("/admin/apropos/{id}/delete", name: "admin_apropos_delete", methods: ["DELETE"])]
     public function deleteApropos(int $id, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $apropos = $doctrine->getRepository(Apropos::class)->find($id);
 
         if (!$apropos) {

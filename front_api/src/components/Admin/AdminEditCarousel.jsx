@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../Data/axiosConfig';
-import Base_Img_Url from '../../Data/Data';
+import Base_API from '../../Data/Base_API';
 
 const CarouselEdit = () => {
   const [formData, setFormData] = useState({
@@ -111,7 +111,7 @@ const CarouselEdit = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="picture" className="form-label">Image</label>
-            {formData.picture && <img src={`${Base_Img_Url}${formData.picture}`} alt="Carousel" width="100" className="d-block mb-2" />}
+            {formData.picture && <img src={`${Base_API}/uploads/images/carousel/${formData.picture}`} alt="Carousel" width="100" className="d-block mb-2" />}
           <input
             type="file"
             id="picture"

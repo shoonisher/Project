@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/Navbar.css';
 import { AuthContext } from '../Data/AuthContext';
+import Base_API from '../Data/Base_API';
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark navbar-absolute">
       <a className="navbar-brand navbar-logo" href="/">
-        <img src="https://localhost:8000/img/Logo_blanc_simple_1.png" alt="Logo" />
+        <img src={`${Base_API}/img/Logo_blanc_simple_1.png`} alt="Logo" />
       </a>
       <button
         className="navbar-toggler"

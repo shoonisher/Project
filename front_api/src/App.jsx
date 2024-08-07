@@ -36,6 +36,7 @@ import AdminEditProgramme from './components/Admin/AdminEditProgramme';
 import Footer from './components/Footer';
 import ResetPasswordForm from './pages/ResetPassword';
 import CodeVerificationForm from './pages/CodeResetPassword';
+import Error400 from './components/404';
 
 function App() {
   return (
@@ -74,6 +75,8 @@ function App() {
           <Route path="/admin/programme/edit/:id" element={< AdminEditProgramme/>} />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
           <Route path="/verify-code" element={<CodeVerificationForm />} />
+          <Route path="*" element={<Error400/>} />
+          <Route path="404" element={<Error400 />} />
         </Routes>
         <Footer />
       </Router>

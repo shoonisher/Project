@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../Data/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import Base_API from '../Data/Base_API';
+import { GoogleReCaptchaProvider, GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const ContactForm = () => {
   const [form, setForm] = useState({
@@ -11,7 +11,6 @@ const ContactForm = () => {
     phone: '',
     location: '',
     formation: '',
-    datepicker: '',
     personne: '',
     message: ''
   });
@@ -19,10 +18,12 @@ const ContactForm = () => {
   const [personnel, setPersonnel] = useState(null);
   const [formations, setFormations] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
+  const [token, setToken] = useState("");
+  const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance.get('/profile')
+    axiosInstance.get('/api/personnel')
       .then(response => {
         setPersonnel(response.data);
       })
@@ -43,37 +44,43 @@ const ContactForm = () => {
       });
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log(...form);
     e.preventDefault();
-    axiosInstance.post(`/contact`, form, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-    })
-      .then(response => {
-        setFormStatus(response.data);
-        console.log(response.data);
-        if (response.data.status === 'success') {
-          setForm({
-            name: '',
-            email: '',
-            phone: '',
-            location: '',
-            formation: '',
-            datepicker: '',
-            personne: '',
-            message: ''
-          });
-          setSuccessMessage('Votre message a été envoyé avec succès.');
-          setTimeout(() => {
-            navigate('/');
-          }, 3000); // 3 seconds delay
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error);
+    if (!token) {
+      alert('Veuillez vérifier que vous n\'êtes pas un robot.');
+      return;
+    }
+    try {
+      const res = await axiosInstance.post('/contact', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        ...form,
       });
+      const data = res.data;
+      setFormStatus(data);
+      console.log(data);
+      if (data.status === 'success') {
+        setForm({
+          name: '',
+          email: '',
+          phone: '',
+          location: '',
+          formation: '',
+          personne: '',
+          message: ''
+        });
+        setSuccessMessage('Votre message a été envoyé avec succès.');
+        setTimeout(() => {
+          navigate('/');
+        }, 3000); // 3 seconds delay
+      }
+    } catch (error) {
+      setRefreshReCaptcha(!refreshReCaptcha);
+      console.error('Error submitting form:', error);
+    }
   };
 
   const handleChange = (e) => {
@@ -82,6 +89,10 @@ const ContactForm = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  const setTokenFunc = useCallback((token) => {
+    setToken(token);
+  }, []);
 
   return (
     <div className="content">
@@ -129,7 +140,7 @@ const ContactForm = () => {
                 <div className="row">
                   <div className="col-md-6 form-group mb-5">
                     <input
-                      type="number"
+                      type="text"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
@@ -210,6 +221,13 @@ const ContactForm = () => {
                     <span className="submitting"></span>
                   </div>
                 </div>
+                <GoogleReCaptchaProvider reCaptchaKey="6LcGZiEqAAAAACW2r4fEOi98PKUeZ9UT2t5FlNgG">
+                  <GoogleReCaptcha
+                    className="google-recaptcha-custom-class"
+                    onVerify={setTokenFunc}
+                    refreshReCaptcha={refreshReCaptcha}
+                  />
+                </GoogleReCaptchaProvider>
               </form>
 
               {formStatus && (

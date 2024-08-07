@@ -26,7 +26,7 @@ const Admin = () => {
             setUser({ username: response.data.username });
           }
         } catch (error) {
-          navigate('/');
+          navigate('/h');
         }
       };
 

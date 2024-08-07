@@ -39,10 +39,10 @@ const LoginForm = () => {
     }
   };
 //decommenter avant mise en ligne
-  // if (isLoggedIn) {
-  //   navigate('/');
-  //   return;
-  // }
+  if (isLoggedIn) {
+    navigate('/');
+    return;
+  }
 
   return (
     <div className="container-fluid mt-5">

@@ -45,7 +45,6 @@ const ContactForm = () => {
   }, []);
 
   const handleSubmit = async (e) => {
-    console.log(...form);
     e.preventDefault();
     if (!token) {
       alert('Veuillez vérifier que vous n\'êtes pas un robot.');

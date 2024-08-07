@@ -18,6 +18,7 @@ const ContactForm = () => {
   const [personnel, setPersonnel] = useState(null);
   const [formations, setFormations] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [token, setToken] = useState("");
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const ContactForm = () => {
       })
       .catch(error => {
         console.error('Error fetching personnel data:', error);
+        setErrorMessage('Erreur lors de la récupération des données du personnel.');
       });
 
     axiosInstance.get('/formations/contact')
@@ -37,10 +39,12 @@ const ContactForm = () => {
           setFormations(response.data);
         } else {
           console.error('Error: formations data is not an array');
+          setErrorMessage('Erreur: les données des formations ne sont pas un tableau.');
         }
       })
       .catch(error => {
         console.error('Error fetching formations data:', error);
+        setErrorMessage('Erreur lors de la récupération des données des formations.');
       });
   }, []);
 
@@ -60,8 +64,9 @@ const ContactForm = () => {
       });
       const data = res.data;
       setFormStatus(data);
-      console.log(data);
+      console.log("data:", data);
       if (data.status === 'success') {
+        setSuccessMessage('Votre message a été envoyé avec succès.');
         setForm({
           name: '',
           email: '',
@@ -71,14 +76,16 @@ const ContactForm = () => {
           personne: '',
           message: ''
         });
-        setSuccessMessage('Votre message a été envoyé avec succès.');
         setTimeout(() => {
           navigate('/');
         }, 3000); // 3 seconds delay
+      } else {
+        setErrorMessage('Erreur lors de l\'envoi du message.');
       }
     } catch (error) {
       setRefreshReCaptcha(!refreshReCaptcha);
       console.error('Error submitting form:', error);
+      setErrorMessage('Erreur lors de l\'envoi du formulaire.');
     }
   };
 
@@ -100,6 +107,11 @@ const ContactForm = () => {
         {successMessage && (
           <div className="alert alert-success">
             {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="alert alert-danger">
+            {errorMessage}
           </div>
         )}
         <div className="row align-items-stretch no-gutters contact-wrap contact">

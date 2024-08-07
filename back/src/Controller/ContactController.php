@@ -20,7 +20,6 @@ class ContactController extends AbstractController
         // Vérifiez si la requête est de type POST
         if ($request->isMethod('POST')) {
             $data = json_decode($request->getContent(), true);
-var_dump($data);
             // Assurez-vous que les données sont bien envoyées en JSON
             if (json_last_error() === JSON_ERROR_NONE) {
                 // Traitez les données envoyées par le formulaire

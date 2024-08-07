@@ -7,6 +7,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,8 +17,27 @@ const LoginForm = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (progress > 0 && progress < 100) {
+      const timer = setInterval(() => {
+        setProgress((prevProgress) => (prevProgress >= 100 ? 100 : prevProgress + 10));
+      }, 200);
+      return () => clearInterval(timer);
+    }
+  }, [progress]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setProgress(10); // Start the progress bar
     try {
       const response = await axiosInstance.post('/api/login', {
         username,
@@ -36,6 +56,8 @@ const LoginForm = () => {
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Une erreur est survenue');
+    } finally {
+      setProgress(100); // Complete the progress bar
     }
   };
 //decommenter avant mise en ligne
@@ -50,7 +72,12 @@ const LoginForm = () => {
         <div className="w-100 mt-5">
           <div className="border p-3">
             {error && (
-              <div className="alert alert-danger">{error}</div>
+              <div className="alert alert-danger">
+                {error}
+                <div className="progress mt-2">
+                  <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: `${progress}%` }}></div>
+                </div>
+              </div>
             )}
 
             {isLoggedIn && (
